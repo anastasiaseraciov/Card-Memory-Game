@@ -55,11 +55,17 @@ function initGame(){
         return generateCard(card);
     });
 
+    moves = 0;
+    moveCounter.innerText = moves;
+
     deck.innerHTML = cardHTML.join('');
 };
 
-initGame();
 
+let moves = 0;
+let moveCounter = document.querySelector('.moves');
+
+initGame();
 
  let allCards = document.querySelectorAll('.card');
  let openCards = [];
@@ -88,6 +94,9 @@ initGame();
                     openCards = [];
                 }, 1000);
             };
+            moves+=1;
+            moveCounter.innerText = moves;
+
         };
      });
  });
