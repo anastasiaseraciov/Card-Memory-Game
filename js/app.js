@@ -12,7 +12,7 @@ let cards = ['fa-diamond', 'fa-diamond',
     'fa-bomb', 'fa-bomb'];
 
 function generateCard(card) {
-    return `<li class="card"><i class="fa ${card}"></i></li>`;
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 };
 
 /*
@@ -68,13 +68,19 @@ initGame();
          if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')){
              openCards.push(card);
              card.classList.add('open', 'show');
-            // check if the card match
-
-            //if cards dont match
-
-
-
+           
              if (openCards.length == 2) {
+                 if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                     openCards[0].classList.add('match', 'open', 'show');
+                     openCards[1].classList.add('match', 'open', 'show');
+
+                     openCards = [];
+                
+                 };
+
+
+
+
                 setTimeout(function() {
                     openCards.forEach(function(card){
                         card.classList.remove('open', 'show');
