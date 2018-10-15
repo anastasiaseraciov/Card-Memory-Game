@@ -1,0 +1,1 @@
+pointer-event: none; class disable, for to disable click events

@@ -62,6 +62,7 @@ function initGame(){
 };
 
 
+
 let moves = 0;
 let moveCounter = document.querySelector('.moves');
 
@@ -69,6 +70,7 @@ initGame();
 
  let allCards = document.querySelectorAll('.card');
  let openCards = [];
+ let matchedCards = [];
  allCards.forEach(function (card) {
      card.addEventListener("click", function(e){
          if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')){
@@ -80,6 +82,8 @@ initGame();
                      openCards[0].classList.add('match', 'open', 'show');
                      openCards[1].classList.add('match', 'open', 'show');
 
+                     matchedCards = matchedCards.concat(openCards);
+                     isOver(gameOver);
                      openCards = [];
                 
                  };
@@ -100,3 +104,17 @@ initGame();
         };
      });
  });
+
+
+ // Check if the game is over
+
+ let gameOver;
+
+ function isOver () {
+     gameOver = setTimeout (function () {
+         if (matchedCards.length === cards.length) {
+         alert ("Game OVER");};
+    }, 500);
+ };
+
+ // Restart Button
