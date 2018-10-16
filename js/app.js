@@ -11,9 +11,13 @@ let cards = ['fa-diamond', 'fa-diamond',
     'fa-bicycle', 'fa-bicycle',
     'fa-bomb', 'fa-bomb'];
 
+
 function generateCard(card) {
-    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+    return `<li class="card" data-card="fa ${card}"><i class="fa ${card}"></i></li>`;
 };
+
+
+
 
 /*
  * Display the cards on the page
@@ -48,14 +52,15 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
 function initGame(){
-    var deck = document.querySelector('.deck');
-    var cardHTML = shuffle(cards).map(function(card){
+
+    let deck = document.querySelector('.deck');
+    const cardHTML = shuffle(cards).map(function (card) {
         return generateCard(card);
     });
 
-    moves = 0;
+    let moves = 0;
+    let moveCounter = document.querySelector('.moves');
     moveCounter.innerText = moves;
 
     deck.innerHTML = cardHTML.join('');
@@ -63,10 +68,12 @@ function initGame(){
 
 
 
-let moves = 0;
-let moveCounter = document.querySelector('.moves');
 
 initGame();
+
+
+let moveCounter = document.querySelector('.moves');
+let moves = 0;
 
  let allCards = document.querySelectorAll('.card');
  let openCards = [];
@@ -106,6 +113,29 @@ initGame();
  });
 
 
+ // Add move
+
+// let moveCounter = document.querySelector('.moves');
+// let moves = 0;
+// moveCounter.innerHML = 0; //innerText
+//  function addMove(){
+//      moves++;
+//      moveCounter.innerHTML = moves;
+
+//      //Set Rating
+//      setRating();
+//  };
+
+ // Rating
+
+ stars = document.querySelector(".stars");
+ function rating () {
+     if (moves>5) {
+         stars.innerHTML = `<li><i class="fa fa-star"></i></li>
+             <li> <i class="fa fa-star"></i></li >`
+     };
+ };
+
  // Check if the game is over
 
  let gameOver;
@@ -118,3 +148,20 @@ initGame();
  };
 
  // Restart Button
+
+ let restartBtn = document.querySelector(".restart");
+ restartBtn.addEventListener("click", function() {
+
+    moves = 0;
+    moveCounter.innerHTML = 0;
+    cardHTML = "";
+
+     //call init to crete new cards
+     deck.innerHTML = "";
+         
+     //generate new deck
+     initGame();
+     
+     //resest any related variables
+     matchedCards = [];
+ });
