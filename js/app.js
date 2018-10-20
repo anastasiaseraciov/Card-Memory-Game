@@ -72,9 +72,6 @@ function initGame(){
 initGame();
 
 
-let moveCounter = document.querySelector('.moves');
-let moves = 0;
-
  let allCards = document.querySelectorAll('.card');
  let openCards = [];
  let matchedCards = [];
@@ -105,8 +102,7 @@ let moves = 0;
                     openCards = [];
                 }, 1000);
             };
-            moves+=1;
-            moveCounter.innerText = moves;
+             addMove();
 
         };
      });
@@ -114,17 +110,17 @@ let moves = 0;
 
 
  // Add move
+let moves = 0;
 
-// let moveCounter = document.querySelector('.moves');
-// let moves = 0;
-// moveCounter.innerHML = 0; //innerText
-//  function addMove(){
-//      moves++;
-//      moveCounter.innerHTML = moves;
+ function addMove(){
+     
+     const movesText = document.querySelector('.moves');
+     moves++;
+     movesText.innerHTML = moves; //innerText
 
-//      //Set Rating
-//      setRating();
-//  };
+     //Set Rating
+     setRating();
+ };
 
  // Rating
 
