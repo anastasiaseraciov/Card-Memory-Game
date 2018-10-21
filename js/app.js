@@ -120,16 +120,34 @@ let moves = 0;
 
      //Set Rating
      setRating();
+     
  };
 
  // Rating
-
- stars = document.querySelector(".stars");
- function rating () {
-     if (moves>5) {
-         stars.innerHTML = `<li><i class="fa fa-star"></i></li>
-             <li> <i class="fa fa-star"></i></li >`
+ function setRating () {
+     // Generate starter number of stars
+     for (i = 0; i < 3; i++) {
+         const li = document.createElement("LI");
+     const starLi = li.innerHTML = `<i class = "fa fa-star"></i>`; // Create a <li> node
+     const starsUL = document.getElementsByClassName("stars");
+     const starList = starsUL[0];
+     const star = starList.appendChild(li); 
      };
+
+
+     if (moves > 3 && moves < 9) {
+         console.log("check moves 1");
+     } else if (moves > 9 && moves < 12) {
+         console.log("check moves 2");
+     } else {
+         console.log("check moves 3");
+     };
+     
+    /* if (moves > 30 && moves < 45) {
+         star[2].innerText.append(`-o`);
+ */
+
+   //  };
  };
 
  // Check if the game is over
