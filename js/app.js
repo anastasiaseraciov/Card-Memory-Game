@@ -130,7 +130,7 @@ function addMove() {
 // Rating
 function generateRating() {
     // Generate starter number of stars
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 5; i++) {
         const li = document.createElement("LI");
         const starLi = li.innerHTML = `<i class = "fa fa-star"></i>`; // Create a <li> node
         const starsUL = document.getElementsByClassName("stars");
@@ -141,23 +141,21 @@ function generateRating() {
 
     //Set Rating
 function setRating(){
-         if (movesCounter === 16) {
-             document.getElementsByClassName("fa fa-star")[2].className = "fa fa-star-o";
+
+    const star = document.getElementsByClassName("fa fa-star");
+         if (movesCounter === 3) {
+             star[4].className = "fa fa-star-o";
             
-        } else if (moves === 20) {
-             document.getElementsByClassName("fa fa-star")[1].className = "fa fa-star-o";
-        } else if  (moves === 30) {
-             document.getElementsByClassName("fa fa-star")[0].className += " redStar";
+        } else if (moves === 5) {
+             star[3].className = "fa fa-star-o";
+        } else if (moves === 7) {
+             star[2].className = "fa fa-star-o";
+        } else if (moves === 9) {
+             star[1].className = "fa fa-star-o";
+             star[0].className += " redStar";
+        };
     };
 
-   
-
-    /* if (moves > 30 && moves < 45) {
-         star[2].innerText.append(`-o`);
- */
-
-    //  };
-};
 setRating();
 
 // Check if the game is over
