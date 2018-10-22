@@ -111,3 +111,7 @@ h1 {
 .redStar {
     color: red;
 }
+
+.dimmed {
+    display: none;
+}

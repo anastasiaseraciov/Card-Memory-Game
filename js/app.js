@@ -139,10 +139,12 @@ function generateRating() {
     };
 };
 
+
+
     //Set Rating
 function setRating(){
 
-    const star = document.getElementsByClassName("fa fa-star");
+    let star = document.getElementsByClassName("fa fa-star");
          if (movesCounter === 3) {
              star[4].className = "fa fa-star-o";
             
@@ -166,8 +168,13 @@ function isOver() {
     gameOver = setTimeout(function () {
         if (matchedCards.length === cards.length) {
             alert("Game OVER");
+            showGameOverModal();
         };
     }, 500);
+};
+
+function showGameOverModal () {
+    scorePanelStars = document.querySelector(".stars").innerHTML;
 };
 
 // Restart Button
@@ -176,6 +183,7 @@ let restartBtn = document.querySelector(".restart");
 restartBtn.addEventListener("click", function () {
 
     moves = 0;
+    movesCounter = 0;
     moveCounter.innerHTML = 0;
     cardHTML = "";
 
