@@ -9,7 +9,8 @@ let cards = ['fa-diamond', 'fa-diamond',
     'fa-cube', 'fa-cube',
     'fa-leaf', 'fa-leaf',
     'fa-bicycle', 'fa-bicycle',
-    'fa-bomb', 'fa-bomb'];
+    'fa-bomb', 'fa-bomb'
+];
 
 
 function generateCard(card) {
@@ -28,7 +29,8 @@ function generateCard(card) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -52,7 +54,7 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-function initGame(){
+function initGame() {
 
     let deck = document.querySelector('.deck');
     const cardHTML = shuffle(cards).map(function (card) {
@@ -68,114 +70,123 @@ function initGame(){
 
 
 
-
+generateRating();
 initGame();
 
 
- let allCards = document.querySelectorAll('.card');
- let openCards = [];
- let matchedCards = [];
- allCards.forEach(function (card) {
-     card.addEventListener("click", function(e){
-         if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')){
-             openCards.push(card);
-             card.classList.add('open', 'show');
-           
-             if (openCards.length == 2) {
-                 if (openCards[0].dataset.card == openCards[1].dataset.card) {
-                     openCards[0].classList.add('match', 'open', 'show');
-                     openCards[1].classList.add('match', 'open', 'show');
+let allCards = document.querySelectorAll('.card');
+let openCards = [];
+let matchedCards = [];
+let movesCounter = 0;
+allCards.forEach(function (card) {
+    card.addEventListener("click", function (e) {
+        if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
+            openCards.push(card);
+            card.classList.add('open', 'show');
 
-                     matchedCards = matchedCards.concat(openCards);
-                     isOver(gameOver);
-                     openCards = [];
-                
-                 };
+            if (openCards.length == 2) {
+                if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                    openCards[0].classList.add('match', 'open', 'show');
+                    openCards[1].classList.add('match', 'open', 'show');
+
+                    matchedCards = matchedCards.concat(openCards);
+                    isOver(gameOver);
+                    openCards = [];
+
+                };
 
 
 
 
-                setTimeout(function() {
-                    openCards.forEach(function(card){
+                setTimeout(function () {
+                    openCards.forEach(function (card) {
                         card.classList.remove('open', 'show');
                     });
                     openCards = [];
                 }, 1000);
             };
-             addMove();
+            addMove();
+            movesCounter++;
+            setRating();
 
         };
-     });
- });
+    });
+});
 
 
- // Add move
+// Add move
 let moves = 0;
 
- function addMove(){
-     
-     const movesText = document.querySelector('.moves');
-     moves++;
-     movesText.innerHTML = moves; //innerText
 
-     //Set Rating
-     setRating();
-     
- };
+function addMove() {
 
- // Rating
- function setRating () {
-     // Generate starter number of stars
-     for (i = 0; i < 3; i++) {
-         const li = document.createElement("LI");
-     const starLi = li.innerHTML = `<i class = "fa fa-star"></i>`; // Create a <li> node
-     const starsUL = document.getElementsByClassName("stars");
-     const starList = starsUL[0];
-     const star = starList.appendChild(li); 
-     };
+    const movesText = document.querySelector('.moves');
+    moves++;
+    movesText.innerHTML = moves; //innerText
 
 
-     if (moves > 3 && moves < 9) {
-         console.log("check moves 1");
-     } else if (moves > 9 && moves < 12) {
-         console.log("check moves 2");
-     } else {
-         console.log("check moves 3");
-     };
-     
+};
+
+// Rating
+function generateRating() {
+    // Generate starter number of stars
+    for (i = 0; i < 3; i++) {
+        const li = document.createElement("LI");
+        const starLi = li.innerHTML = `<i class = "fa fa-star"></i>`; // Create a <li> node
+        const starsUL = document.getElementsByClassName("stars");
+        const starList = starsUL[0];
+        const star = starList.appendChild(li);
+    };
+};
+
+    //Set Rating
+function setRating(){
+         if (movesCounter === 16) {
+             document.getElementsByClassName("fa fa-star")[2].className = "fa fa-star-o";
+            
+        } else if (moves === 20) {
+             document.getElementsByClassName("fa fa-star")[1].className = "fa fa-star-o";
+        } else if  (moves === 30) {
+             document.getElementsByClassName("fa fa-star")[0].className += " redStar";
+    };
+
+   
+
     /* if (moves > 30 && moves < 45) {
          star[2].innerText.append(`-o`);
  */
 
-   //  };
- };
+    //  };
+};
+setRating();
 
- // Check if the game is over
+// Check if the game is over
 
- let gameOver;
+let gameOver;
 
- function isOver () {
-     gameOver = setTimeout (function () {
-         if (matchedCards.length === cards.length) {
-         alert ("Game OVER");};
+function isOver() {
+    gameOver = setTimeout(function () {
+        if (matchedCards.length === cards.length) {
+            alert("Game OVER");
+        };
     }, 500);
- };
+};
 
- // Restart Button
+// Restart Button
 
- let restartBtn = document.querySelector(".restart");
- restartBtn.addEventListener("click", function() {
+let restartBtn = document.querySelector(".restart");
+restartBtn.addEventListener("click", function () {
 
     moves = 0;
     moveCounter.innerHTML = 0;
     cardHTML = "";
 
-     //call init to crete new cards
-     deck.innerHTML = "";
-         
-     //generate new deck
-     initGame();
-     
-     //resest any related variables
-     matchedCards = [];
- });
+    //call init to crete new cards
+    deck.innerHTML = "";
+
+    //generate new deck
+    initGame();
+
+    //resest any related variables
+    matchedCards = [];
+});
