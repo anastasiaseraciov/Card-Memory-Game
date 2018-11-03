@@ -1,3 +1,5 @@
+let restartBtn = document.querySelector(".restart");
+
 /*
  * Create a list that holds all of your cards
  */
@@ -71,6 +73,7 @@ function initGame() {
 
 
 generateRating();
+buildModal();
 initGame();
 
 
@@ -146,8 +149,7 @@ function setRating(){
 
     let star = document.getElementsByClassName("fa fa-star");
          if (movesCounter === 3) {
-             star[4].className = "fa fa-star-o";
-            
+             star[4].className = "fa fa-star-o"; 
         } else if (moves === 5) {
              star[3].className = "fa fa-star-o";
         } else if (moves === 7) {
@@ -169,19 +171,54 @@ function isOver() {
         if (matchedCards.length === cards.length) {
             alert("Game OVER");
             showGameOverModal();
+            buildModal();
+            
         };
     }, 500);
 };
 
+// Create a div element to add to the page that will hold the congrats message later
+// Hide the div element initially
+function buildModal () {
+    const modalContainer = document.getElementsByClassName('container');
+    const modalDiv = document.createElement('div');
+    modalDiv.className = `modalBox dimmed`;
+    modalDiv.innerHTML = ``;
+    modalContainer[0].appendChild(modalDiv);
+}
+
+// Display the Modal Box message with the move count, total time, star rating and play again 'button'
 function showGameOverModal () {
+    const modalDiv = document.getElementsByClassName(`modalBox`);
     scorePanelStars = document.querySelector(".stars").innerHTML;
+    modalDiv[0].className = `modalBox`;
+    modalDiv[0].innerHTML =
+        `<h2>Congratulations!</h2>
+        <h3>You've won the game!</h3>
+        <p>${movesCounter} moves</p>
+        
+        <ul class = "stars" >${scorePanelStars}</ul>
+        <button class="modalButton"> Play Again</button>`;
+        // <p>${timer.innerHTML} total time</p>
+    const button = document.getElementsByClassName(`modalButton`);
+    button[0].addEventListener(`click`, reset);
+    
 };
+
+// Hide the congrats popup by adding the class 'dimmed'
+// Erase the modal box text messages
+function hideModal() {
+    const popup = document.getElementsByClassName(`congratsPopup`);
+    popup[0].className = `congratsPopup dimmed`;
+    popup[0].innerHTML = ``;
+}
 
 // Restart Button
 
-let restartBtn = document.querySelector(".restart");
-restartBtn.addEventListener("click", function () {
 
+
+
+function reset(){
     moves = 0;
     movesCounter = 0;
     moveCounter.innerHTML = 0;
@@ -195,4 +232,7 @@ restartBtn.addEventListener("click", function () {
 
     //resest any related variables
     matchedCards = [];
-});
+    hideModal();
+};
+
+restartBtn.addEventListener("click", reset);
