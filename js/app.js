@@ -112,6 +112,11 @@ allCards.forEach(function (card) {
             movesCounter++;
             setRating();
 
+            // Start the timer if it is the first click
+            if (moves === 1) {
+                timeInt = setInterval(startTimer, 1000);
+            };
+
         };
     });
 });
@@ -129,6 +134,37 @@ function addMove() {
 
 
 };
+
+// Select the score-panel, add a timer with default value of 00:00, and initialize the total seconds to 0
+const timer = document.createElement(`div`);
+timer.className = `timer`;
+timer.innerHTML = `00:00`;
+const scorePanel = document.getElementsByClassName(`score-panel`);
+scorePanel[0].appendChild(timer);
+let totalSeconds = 0;
+
+// Change the timer values on the webpage to reflect elapsed time in minutes and seconds
+function startTimer() {
+    ++totalSeconds;
+    function addZero(i) {
+        return (i < 10) ? `0` + i : i;
+    }
+    let min = addZero(Math.floor(totalSeconds / 60));
+    let sec = addZero(totalSeconds - (min * 60));
+    timer.innerHTML = `${min}:${sec}`;
+}
+
+// Reset the timer to default of 0 and the text on the webpage to 00:00
+function resetTimer() {
+    clearInterval(timeInt);
+    totalSeconds = 0;
+    timer.innerHTML = `00:00`;
+}
+
+// Stop the timer
+function stopTimer() {
+    clearInterval(timeInt);
+}
 
 // Rating
 function generateRating() {
@@ -162,7 +198,7 @@ function setRating(){
 
 setRating();
 
-// Check if the game is over
+// Check if the game is over and if all 16 cards are matched, stop the timer and display the modal box
 
 let gameOver;
 
@@ -170,6 +206,7 @@ function isOver() {
     gameOver = setTimeout(function () {
         if (matchedCards.length === cards.length) {
             alert("Game OVER");
+            stopTimer();
             showGameOverModal();
             buildModal();
             
@@ -196,10 +233,9 @@ function showGameOverModal () {
         `<h2>Congratulations!</h2>
         <h3>You've won the game!</h3>
         <p>${movesCounter} moves</p>
-        
+        <p>${timer.innerHTML} total time</p>
         <ul class = "stars" >${scorePanelStars}</ul>
         <button class="modalButton"> Play Again</button>`;
-        // <p>${timer.innerHTML} total time</p>
     const button = document.getElementsByClassName(`modalButton`);
     button[0].addEventListener(`click`, reset);
     
