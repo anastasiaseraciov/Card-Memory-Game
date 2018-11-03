@@ -180,7 +180,7 @@ function generateRating() {
 
 
 
-    //Set Rating
+//Set Rating depending on number of card clicks/moves
 function setRating(){
 
     let star = document.getElementsByClassName("fa fa-star");
