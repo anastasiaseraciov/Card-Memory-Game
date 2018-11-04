@@ -63,16 +63,12 @@ function initGame() {
         return generateCard(card);
     });
 
-    let moves = 0;
-    let moveCounter = document.querySelector('.moves');
-    moveCounter.innerText = moves;
-
     deck.innerHTML = cardHTML.join('');
 };
 
 
 
-generateRating();
+generateStars();
 buildModal();
 initGame();
 
@@ -108,12 +104,11 @@ allCards.forEach(function (card) {
                     openCards = [];
                 }, 1000);
             };
-            addMove();
-            movesCounter++;
-            setRating();
+            incrementCounter();
+            setStars();
 
             // Start the timer if it is the first click
-            if (moves === 1) {
+            if (movesCounter === 1) {
                 timeInt = setInterval(startTimer, 1000);
             };
 
@@ -122,18 +117,25 @@ allCards.forEach(function (card) {
 });
 
 
-// Add move
-let moves = 0;
+
+// Grab the 'moves' from the HTML and change the text to 0
+let moves = document.getElementsByClassName(`moves`);
+moves[0].innerHTML = 0;
+
+//Add default value for the the move counter
+movesCounter = 0;
 
 
-function addMove() {
+// Increase the click(move) count by 1 and update the HTML text to the current value
+function incrementCounter() {
+    movesCounter++;
+    moves[0].innerHTML = movesCounter;
+}
 
-    const movesText = document.querySelector('.moves');
-    moves++;
-    movesText.innerHTML = moves; //innerText
-
-
-};
+// Reset the click(move) to 0 and update the HTML text to the current value
+function resetCounter() {
+    moves[0].innerHTML = movesCounter = 0;
+}
 
 // Select the score-panel, add a timer with default value of 00:00, and initialize the total seconds to 0
 const timer = document.createElement(`div`);
@@ -167,7 +169,7 @@ function stopTimer() {
 }
 
 // Rating
-function generateRating() {
+function generateStars() {
     // Generate starter number of stars
     for (i = 0; i < 5; i++) {
         const li = document.createElement("LI");
@@ -181,10 +183,10 @@ function generateRating() {
 
 
 //Set Rating depending on number of card clicks/moves
-function setRating(){
+function setStars(){
 
     let star = document.getElementsByClassName("fa fa-star");
-         if (movesCounter === 3) {
+        if (moves === 3) {
              star[4].className = "fa fa-star-o"; 
         } else if (moves === 5) {
              star[3].className = "fa fa-star-o";
@@ -196,10 +198,15 @@ function setRating(){
         };
     };
 
-setRating();
+// Reset Stars and show all stars by changing the class name
+    function resetStars() {
+    const stars = document.getElementsByClassName(`fa fa-star-o`);
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].className = `fa fa-star`;
+    }
+}
 
 // Check if the game is over and if all 16 cards are matched, stop the timer and display the modal box
-
 let gameOver;
 
 function isOver() {
@@ -250,15 +257,19 @@ function hideModal() {
 }
 
 // Restart Button
-
-
-
-
 function reset(){
-    moves = 0;
-    movesCounter = 0;
-    moveCounter.innerHTML = 0;
+    openCards = [];
+    matchedCards = [];
     cardHTML = "";
+
+    //reset Timer
+    resetTimer();
+
+    //reset moves counter
+    resetCounter();
+
+    //reset stars color/symbol
+    setStars();
 
     //call init to crete new cards
     deck.innerHTML = "";
@@ -266,7 +277,7 @@ function reset(){
     //generate new deck
     initGame();
 
-    //resest any related variables
+    //reset any related variables
     matchedCards = [];
     hideModal();
 };
