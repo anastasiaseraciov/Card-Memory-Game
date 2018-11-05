@@ -186,13 +186,15 @@ function generateStars() {
 function setStars(){
 
     let star = document.getElementsByClassName("fa fa-star");
-        if (moves === 3) {
+    if (movesCounter === 0) {
+        star.className = `fa fa-star`;
+    } else if (movesCounter === 3) {
              star[4].className = "fa fa-star-o"; 
-        } else if (moves === 5) {
+        } else if (movesCounter === 5) {
              star[3].className = "fa fa-star-o";
-        } else if (moves === 7) {
+        } else if (movesCounter === 7) {
              star[2].className = "fa fa-star-o";
-        } else if (moves === 9) {
+        } else if (movesCounter === 9) {
              star[1].className = "fa fa-star-o";
              star[0].className += " redStar";
         };
@@ -251,16 +253,16 @@ function showGameOverModal () {
 // Hide the congrats popup by adding the class 'dimmed'
 // Erase the modal box text messages
 function hideModal() {
-    const popup = document.getElementsByClassName(`congratsPopup`);
-    popup[0].className = `congratsPopup dimmed`;
-    popup[0].innerHTML = ``;
+    const modalDiv = document.getElementsByClassName(`modalBox`);
+    modalDiv[0].className = `modalBox dimmed`;
+    modalDiv[0].innerHTML = ``;
 }
 
 // Restart Button
 function reset(){
     openCards = [];
     matchedCards = [];
-    cardHTML = "";
+    deck.innerHTML = "";
 
     //reset Timer
     resetTimer();
@@ -269,16 +271,15 @@ function reset(){
     resetCounter();
 
     //reset stars color/symbol
-    setStars();
+    resetStars();
 
     //call init to crete new cards
-    deck.innerHTML = "";
+    // deck.innerHTML = "";
 
     //generate new deck
     initGame();
 
     //reset any related variables
-    matchedCards = [];
     hideModal();
 };
 
