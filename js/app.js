@@ -1,5 +1,32 @@
 let restartBtn = document.querySelector(".restart");
+let deck = document.querySelector('.deck');
 
+let openCards = [];
+let matchedCards = [];
+let movesCounter = 0;
+let timeInt = 0;
+let totalSeconds = 0;
+
+// Select the score-panel, add a timer with default value of 00:00, and initialize the total seconds to 0
+const timer = document.createElement(`div`);
+timer.className = `timer`;
+timer.innerHTML = `00:00`;
+const scorePanel = document.getElementsByClassName(`score-panel`);
+scorePanel[0].appendChild(timer);
+
+
+// Grab the 'moves' from the HTML and change the text to 0
+let moves = document.getElementsByClassName(`moves`);
+moves[0].innerHTML = 0;
+
+//Add default value for the the move counter
+movesCounter = 0;
+
+
+// Add eventlistener to listen for click on reset button
+restartBtn.addEventListener("click", reset);
+
+// reset();
 /*
  * Create a list that holds all of your cards
  */
@@ -13,14 +40,6 @@ let cards = ['fa-diamond', 'fa-diamond',
     'fa-bicycle', 'fa-bicycle',
     'fa-bomb', 'fa-bomb'
 ];
-
-
-function generateCard(card) {
-    return `<li class="card" data-card="fa ${card}"><i class="fa ${card}"></i></li>`;
-};
-
-
-
 
 /*
  * Display the cards on the page
@@ -45,6 +64,22 @@ function shuffle(array) {
     return array;
 }
 
+displayCard();
+
+function generateCard(card) {
+    return `<li class="card" data-card="fa ${card}"><i class="fa ${card}"></i></li>`;
+};
+
+
+function displayCard() {
+
+    const cardHTML = shuffle(cards).map(function (card) {
+        return generateCard(card);
+    });
+
+    deck.innerHTML = cardHTML.join('');
+};
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -56,74 +91,52 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-function initGame() {
-
-    let deck = document.querySelector('.deck');
-    const cardHTML = shuffle(cards).map(function (card) {
-        return generateCard(card);
-    });
-
-    deck.innerHTML = cardHTML.join('');
-};
 
 
-
-generateStars();
 buildModal();
-initGame();
+generateStars();
+listenCardClick();
 
+function listenCardClick() {
+    let allCards = document.querySelectorAll('.card');
+    allCards.forEach(function (card) {
+        card.addEventListener("click", function (e) {
+            if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
+                openCards.push(card);
+                card.classList.add('open', 'show');
 
-let allCards = document.querySelectorAll('.card');
-let openCards = [];
-let matchedCards = [];
-let movesCounter = 0;
-allCards.forEach(function (card) {
-    card.addEventListener("click", function (e) {
-        if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
-            openCards.push(card);
-            card.classList.add('open', 'show');
+                if (openCards.length == 2) {
+                    if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                        openCards[0].classList.add('match', 'open', 'show');
+                        openCards[1].classList.add('match', 'open', 'show');
 
-            if (openCards.length == 2) {
-                if (openCards[0].dataset.card == openCards[1].dataset.card) {
-                    openCards[0].classList.add('match', 'open', 'show');
-                    openCards[1].classList.add('match', 'open', 'show');
+                        matchedCards = matchedCards.concat(openCards);
+                        isOver(gameOver);
+                        openCards = [];
+                    };
 
-                    matchedCards = matchedCards.concat(openCards);
-                    isOver(gameOver);
-                    openCards = [];
+                    setTimeout(function () {
+                        openCards.forEach(function (card) {
+                            card.classList.remove('open', 'show');
+                        });
+                        openCards = [];
+                    }, 1000);
+                };
+                incrementCounter();
+                setStars();
 
+                // Start the timer if it is the first click
+                if (movesCounter === 1) {
+                    timeInt = setInterval(startTimer, 1000);
                 };
 
-
-
-
-                setTimeout(function () {
-                    openCards.forEach(function (card) {
-                        card.classList.remove('open', 'show');
-                    });
-                    openCards = [];
-                }, 1000);
             };
-            incrementCounter();
-            setStars();
-
-            // Start the timer if it is the first click
-            if (movesCounter === 1) {
-                timeInt = setInterval(startTimer, 1000);
-            };
-
-        };
+        });
     });
-});
+    
+}
 
 
-
-// Grab the 'moves' from the HTML and change the text to 0
-let moves = document.getElementsByClassName(`moves`);
-moves[0].innerHTML = 0;
-
-//Add default value for the the move counter
-movesCounter = 0;
 
 
 // Increase the click(move) count by 1 and update the HTML text to the current value
@@ -136,14 +149,6 @@ function incrementCounter() {
 function resetCounter() {
     moves[0].innerHTML = movesCounter = 0;
 }
-
-// Select the score-panel, add a timer with default value of 00:00, and initialize the total seconds to 0
-const timer = document.createElement(`div`);
-timer.className = `timer`;
-timer.innerHTML = `00:00`;
-const scorePanel = document.getElementsByClassName(`score-panel`);
-scorePanel[0].appendChild(timer);
-let totalSeconds = 0;
 
 // Change the timer values on the webpage to reflect elapsed time in minutes and seconds
 function startTimer() {
@@ -183,30 +188,33 @@ function generateStars() {
 
 
 //Set Rating depending on number of card clicks/moves
-function setStars(){
-
+function setStars() {
     let star = document.getElementsByClassName("fa fa-star");
     if (movesCounter === 0) {
         star.className = `fa fa-star`;
     } else if (movesCounter === 3) {
-             star[4].className = "fa fa-star-o"; 
-        } else if (movesCounter === 5) {
-             star[3].className = "fa fa-star-o";
-        } else if (movesCounter === 7) {
-             star[2].className = "fa fa-star-o";
-        } else if (movesCounter === 9) {
-             star[1].className = "fa fa-star-o";
-             star[0].className += " redStar";
-        };
+        star[4].className = "fa fa-star-o";
+    } else if (movesCounter === 5) {
+        star[3].className = "fa fa-star-o";
+    } else if (movesCounter === 7) {
+        star[2].className = "fa fa-star-o";
+    } else if (movesCounter === 9) {
+        star[1].className = "fa fa-star-o";
+        star[0].className += " redStar";
     };
+};
 
 // Reset Stars and show all stars by changing the class name
-    function resetStars() {
-    const stars = document.getElementsByClassName(`fa fa-star-o`);
+function resetStars() {
+    const stars = document.querySelectorAll(".fa-star-o");
     for (let i = 0; i < stars.length; i++) {
-        stars[i].className = `fa fa-star`;
+        if (stars[i].className === "fa fa-star-o")  {
+            stars[i].className = "fa fa-star";
+        } else {
+            stars[i].className = "fa fa-star";
+        }
     }
-}
+};
 
 // Check if the game is over and if all 16 cards are matched, stop the timer and display the modal box
 let gameOver;
@@ -214,7 +222,6 @@ let gameOver;
 function isOver() {
     gameOver = setTimeout(function () {
         if (matchedCards.length === cards.length) {
-            alert("Game OVER");
             stopTimer();
             showGameOverModal();
             buildModal();
@@ -226,11 +233,11 @@ function isOver() {
 // Create a div element to add to the page that will hold the congrats message later
 // Hide the div element initially
 function buildModal () {
-    const modalContainer = document.getElementsByClassName('container');
+    const modalContainer = document.querySelector(".container");
     const modalDiv = document.createElement('div');
     modalDiv.className = `modalBox dimmed`;
     modalDiv.innerHTML = ``;
-    modalContainer[0].appendChild(modalDiv);
+    modalContainer.appendChild(modalDiv);
 }
 
 // Display the Modal Box message with the move count, total time, star rating and play again 'button'
@@ -245,8 +252,8 @@ function showGameOverModal () {
         <p>${timer.innerHTML} total time</p>
         <ul class = "stars" >${scorePanelStars}</ul>
         <button class="modalButton"> Play Again</button>`;
-    const button = document.getElementsByClassName(`modalButton`);
-    button[0].addEventListener(`click`, reset);
+    const button = document.querySelector(".modalButton");
+    button.addEventListener(`click`, reset);
     
 };
 
@@ -262,6 +269,8 @@ function hideModal() {
 function reset(){
     openCards = [];
     matchedCards = [];
+
+    // clear deck
     deck.innerHTML = "";
 
     //reset Timer
@@ -273,14 +282,12 @@ function reset(){
     //reset stars color/symbol
     resetStars();
 
-    //call init to crete new cards
-    // deck.innerHTML = "";
-
-    //generate new deck
-    initGame();
+    //call displayCard to create new cards
+    displayCard();
 
     //reset any related variables
     hideModal();
-};
 
-restartBtn.addEventListener("click", reset);
+    // Activate click event on cards
+    listenCardClick();
+};
