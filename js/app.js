@@ -4,6 +4,7 @@ let openCards = [];
 let matchedCards = [];
 let timeInt = 0;
 let totalSeconds = 0;
+const totalStars = 3;
 
 // Select the score-panel, add a timer with default value of 00:00, and initialize the total seconds to 0
 const timer = document.createElement(`div`);
@@ -107,16 +108,16 @@ function listenCardClick() {
                         openCards = [];
                         isOver(gameOver);                        
                     } else {
-                        openCards[0].classList.add('animated', 'infinite', 'shake', 'nomatch');
-                        openCards[1].classList.add('animated', 'infinite', 'shake', 'nomatch');
+                        openCards[0].classList.add('animated', 'fast', 'shake', 'nomatch');
+                        openCards[1].classList.add('animated', 'fast', 'shake', 'nomatch');
                     };
 
                     setTimeout(function () {
                         openCards.forEach(function (card) {
-                            card.classList.remove('open', 'show', 'animated', 'infinite', 'shake', 'nomatch');
+                            card.classList.remove('open', 'show', 'animated', 'fast', 'shake', 'nomatch');
                         });
                         openCards = [];
-                    }, 400 /1.5);
+                    }, 250);
                     
                 };
                 incrementCounter();
@@ -166,15 +167,14 @@ function stopTimer() {
     clearInterval(timeInt);
 }
 
-// Rating
+// Generate the stars HTML
 function generateStars() {
-    // Generate starter number of stars
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < totalStars; i++) {
         const li = document.createElement("LI");
-        const starLi = li.innerHTML = `<i class = "fa fa-star"></i>`; // Create a <li> node
+        li.innerHTML = `<i class = "fa fa-star"></i>`;
         const starsUL = document.getElementsByClassName("stars");
         const starList = starsUL[0];
-        const star = starList.appendChild(li);
+        starList.appendChild(li);
     };
 };
 
@@ -183,15 +183,12 @@ function setStars() {
     let star = document.getElementsByClassName("fa fa-star");
     if (movesCounter === 0) {
         star.className = `fa fa-star`;
-    } else if (movesCounter === 3) {
-        star[4].className = "fa fa-star-o";
-    } else if (movesCounter === 5) {
-        star[3].className = "fa fa-star-o";
-    } else if (movesCounter === 7) {
+    } else if (movesCounter === 32) {
         star[2].className = "fa fa-star-o";
-    } else if (movesCounter === 9) {
+    } else if (movesCounter === 50) {
         star[1].className = "fa fa-star-o";
-        star[0].className += " redStar";
+    } else if (movesCounter === 64) {
+        star[0].className = "fa fa-star-o";
     };
 };
 
@@ -228,7 +225,7 @@ function buildModal() {
     modalDiv.className = `modalBox dimmed`;
     modalDiv.innerHTML = ``;
     modalContainer.appendChild(modalDiv);
-}
+};
 
 // Display the Modal Box message with the move count, total time, star rating and play again 'button'
 function showGameOverModal() {
@@ -256,7 +253,10 @@ function hideModal() {
 
 // Restart Button
 function reset() {
+    //empty array of open cards
     openCards = [];
+
+    //empty array of matched cards
     matchedCards = [];
 
     // clear deck

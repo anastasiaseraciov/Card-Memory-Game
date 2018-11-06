@@ -116,10 +116,6 @@ h1 {
     cursor: pointer;
 }
 
-.redStar {
-    color: red;
-}
-
 .timer {
     float: right;
     margin: 0 2rem;
