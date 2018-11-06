@@ -104,8 +104,9 @@ function listenCardClick() {
                         openCards[1].classList.add('match', 'open', 'show');
 
                         matchedCards = matchedCards.concat(openCards);
-                        isOver(gameOver);
                         openCards = [];
+                        isOver(gameOver);
+                        
                     };
 
                     setTimeout(function () {
@@ -113,7 +114,7 @@ function listenCardClick() {
                             card.classList.remove('open', 'show');
                         });
                         openCards = [];
-                    }, 1000);
+                    }, 300);
                 };
                 incrementCounter();
                 setStars();

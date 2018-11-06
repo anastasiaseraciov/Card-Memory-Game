@@ -112,3 +112,8 @@ h1 {
     color: red;
 }
 
+.timer {
+    float: right;
+    margin: 0 2rem;
+    width: 10vw;
+}
