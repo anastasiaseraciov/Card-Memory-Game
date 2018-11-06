@@ -98,23 +98,26 @@ function listenCardClick() {
                 openCards.push(card);
                 card.classList.add('open', 'show');
 
+                //Check if 2 opened cards match and add animation 
                 if (openCards.length == 2) {
                     if (openCards[0].dataset.card == openCards[1].dataset.card) {
-                        openCards[0].classList.add('match', 'open', 'show');
-                        openCards[1].classList.add('match', 'open', 'show');
-
+                        openCards[0].classList.add('match', 'open', 'show', 'animated', 'fast', 'rubberBand');
+                        openCards[1].classList.add('match', 'open', 'show', 'animated', 'fast', 'rubberBand');
                         matchedCards = matchedCards.concat(openCards);
                         openCards = [];
-                        isOver(gameOver);
-                        
+                        isOver(gameOver);                        
+                    } else {
+                        openCards[0].classList.add('animated', 'infinite', 'shake', 'nomatch');
+                        openCards[1].classList.add('animated', 'infinite', 'shake', 'nomatch');
                     };
 
                     setTimeout(function () {
                         openCards.forEach(function (card) {
-                            card.classList.remove('open', 'show');
+                            card.classList.remove('open', 'show', 'animated', 'infinite', 'shake', 'nomatch');
                         });
                         openCards = [];
-                    }, 300);
+                    }, 400 /1.5);
+                    
                 };
                 incrementCounter();
                 setStars();

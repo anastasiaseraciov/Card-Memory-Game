@@ -85,6 +85,10 @@ h1 {
     transform: rotateY(0);
 }
 
+.deck .card.nomatch{
+    background: #ff0000c7;
+}
+
 /*
  * Styles for the Score Panel
  */
