@@ -124,6 +124,11 @@ h1 {
 
 @media only screen and (max-width: 640px){
     
+    h1 {
+        font-size: 1.5em;
+        line-height: 0.5em;
+    }
+       
     .score-panel {
         width: 270px;
         display: flex;
@@ -132,6 +137,7 @@ h1 {
         flex-direction: row;
         flex-wrap: wrap;
     justify-content: space-around;
+        line-height: 1em;
     }
     
     .score-panel :nth-child(1) { order: 0; }
@@ -152,9 +158,11 @@ h1 {
     height: 60px;
     line-height: 60px;
     }
+    
     .deck .card.show {
         font-size: 20px;
     }
+    
     .deck .card.match {
         font-size: 20px;
     }
