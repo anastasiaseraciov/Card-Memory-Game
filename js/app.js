@@ -187,8 +187,6 @@ function setStars() {
         star[2].className = "fa fa-star-o";
     } else if (movesCounter === 50) {
         star[1].className = "fa fa-star-o";
-    } else if (movesCounter === 64) {
-        star[0].className = "fa fa-star-o";
     };
 };
 
@@ -251,6 +249,38 @@ function hideModal() {
     modalDiv[0].innerHTML = ``;
 }
 
+// Display the Modal Box message with the move count, total time, star rating and play again 'button'
+function showRulesModal() {
+
+    const modalContainer = document.querySelector(".container");
+    const modalDiv = document.createElement('div');
+    modalDiv.className = `rulesModalBox`;
+    modalDiv.innerHTML = 
+        `<h2>Game rules!</h2>
+        <ul>
+        <li>Left click on square opens a card</li>
+        <li>Match two cards<i class= "fa fa-diamond"></i><i class="fa fa-diamond"></i></li >
+      
+        <li>Matching all pairs ends the game</li>
+        <li>Restart icon resets the game</li>
+        <ul class = "rulesMoves">
+        <li>0 to 31 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+        <li>32 to 49 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+         <li>50 and more moves = <i class="fa fa-star"></i></li>
+         </li>
+        <h3> Good Luck </h3>
+        <button class = "startGameModalButton"> Start Game </button>`;
+    modalContainer.appendChild(modalDiv);
+    const startButton = document.querySelector(".startGameModalButton");
+    startButton.addEventListener(`click`, hideRulesModal);
+           
+}
+
+function hideRulesModal() {
+    const modalDiv = document.getElementsByClassName(`rulesModalBox`);
+    modalDiv[0].className = `rulesModalBox dimmed`;
+}
+
 // Restart Button
 function reset() {
     //empty array of open cards
@@ -280,3 +310,5 @@ function reset() {
     // Activate click event on cards
     listenCardClick();
 };
+
+window.onload = showRulesModal();
