@@ -108,13 +108,13 @@ function listenCardClick() {
                         openCards = [];
                         isOver(gameOver);                        
                     } else {
-                        openCards[0].classList.add('animated', 'fast', 'shake', 'nomatch');
-                        openCards[1].classList.add('animated', 'fast', 'shake', 'nomatch');
+                        openCards[0].classList.add('animated', 'fast', 'shake', 'no-match');
+                        openCards[1].classList.add('animated', 'fast', 'shake', 'no-match');
                     };
 
                     setTimeout(function () {
                         openCards.forEach(function (card) {
-                            card.classList.remove('open', 'show', 'animated', 'fast', 'shake', 'nomatch');
+                            card.classList.remove('open', 'show', 'animated', 'fast', 'shake', 'no-match');
                         });
                         openCards = [];
                     }, 250);
@@ -220,32 +220,32 @@ function isOver() {
 function buildModal() {
     const modalContainer = document.querySelector(".container");
     const modalDiv = document.createElement('div');
-    modalDiv.className = `modalBox dimmed`;
+    modalDiv.className = `modal-box dimmed`;
     modalDiv.innerHTML = ``;
     modalContainer.appendChild(modalDiv);
 };
 
 // Display the Modal Box message with the move count, total time, star rating and play again 'button'
 function showGameOverModal() {
-    const modalDiv = document.getElementsByClassName(`modalBox`);
+    const modalDiv = document.getElementsByClassName(`modal-box`);
     scorePanelStars = document.querySelector(".stars").innerHTML;
-    modalDiv[0].className = `modalBox`;
+    modalDiv[0].className = `modal-box`;
     modalDiv[0].innerHTML =
         `<h2>Congratulations!</h2>
         <h3>You've won the game!</h3>
         <p>${movesCounter} moves</p>
         <p>${timer.innerHTML} total time</p>
         <ul class = "stars" >${scorePanelStars}</ul>
-        <button class="modalButton"> Play Again</button>`;
-    const button = document.querySelector(".modalButton");
+        <button class="modal-button"> Play Again</button>`;
+    const button = document.querySelector(".modal-button");
     button.addEventListener(`click`, reset);
 };
 
 // Hide the congrats popup by adding the class 'dimmed'
 // Erase the modal box text messages
 function hideModal() {
-    const modalDiv = document.getElementsByClassName(`modalBox`);
-    modalDiv[0].className = `modalBox dimmed`;
+    const modalDiv = document.getElementsByClassName(`modal-box`);
+    modalDiv[0].className = `modal-box dimmed`;
     modalDiv[0].innerHTML = ``;
 }
 
@@ -254,7 +254,7 @@ function showRulesModal() {
 
     const modalContainer = document.querySelector(".container");
     const modalDiv = document.createElement('div');
-    modalDiv.className = `rulesModalBox`;
+    modalDiv.className = `rules-modal-box`;
     modalDiv.innerHTML = 
         `<h2>Game rules!</h2>
         <ul>
@@ -263,22 +263,22 @@ function showRulesModal() {
       
         <li>Matching all pairs ends the game</li>
         <li>Restart icon resets the game</li>
-        <ul class = "rulesMoves">
+        <ul class = "rules-moves">
         <li>0 to 31 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
         <li>32 to 49 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i></li>
          <li>50 and more moves = <i class="fa fa-star"></i></li>
          </li>
         <h3> Good Luck </h3>
-        <button class = "startGameModalButton"> Start Game </button>`;
+        <button class = "start-game-modal-button"> Start Game </button>`;
     modalContainer.appendChild(modalDiv);
-    const startButton = document.querySelector(".startGameModalButton");
+    const startButton = document.querySelector(".start-game-modal-button");
     startButton.addEventListener(`click`, hideRulesModal);
            
 }
 
 function hideRulesModal() {
-    const modalDiv = document.getElementsByClassName(`rulesModalBox`);
-    modalDiv[0].className = `rulesModalBox dimmed`;
+    const modalDiv = document.getElementsByClassName(`rules-modal-box`);
+    modalDiv[0].className = `rules-modal-box dimmed`;
 }
 
 // Restart Button
