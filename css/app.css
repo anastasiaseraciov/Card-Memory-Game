@@ -111,6 +111,7 @@ h1 {
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+    color: #ffff00;
 }
 
 .score-panel .stars li {
