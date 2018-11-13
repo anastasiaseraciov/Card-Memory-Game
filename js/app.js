@@ -23,7 +23,6 @@ movesCounter = 0;
 // Add eventlistener to listen for click on reset button
 restartBtn.addEventListener("click", reset);
 
-// reset();
 /*
  * Create a list that holds all of your cards
  */
@@ -87,6 +86,7 @@ function displayCard() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+// Call function to generate html of stars, add event Listener to card and build the Congratulations Modal
 buildModal();
 generateStars();
 listenCardClick();
@@ -280,7 +280,7 @@ function hideRulesModal() {
     modalDiv[0].className = `rules-modal-box dimmed`;
 }
 
-// Restart Button
+// Restart Button function triggered on click
 function reset() {
     //empty array of open cards
     openCards = [];
