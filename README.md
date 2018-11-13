@@ -25,12 +25,11 @@
  4. Matching all pairs ends the game :star: :star: :star:
  5. Restart icon resets the game
  6. The time counter starts on the first click on cards
+ 7. Good Luck :wink:
 
 ## Start Game
 
-Follow this link -> <https://anastasiaseraciov.github.io/Card-Memory-Game/>
-
-### Project Specification
+Follow this link -> :point_right: <https://anastasiaseraciov.github.io/Card-Memory-Game/> :point_left:
 
 ## Game behaviour
 
