@@ -121,6 +121,10 @@ h1 {
     cursor: pointer;
 }
 
+.restart:hover {
+    color: #808080;
+}
+
 .timer {
     width: 10vw;
 }
