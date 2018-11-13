@@ -13,10 +13,9 @@
 3. Matching all pairs ends the game
 4. Restart icon resets the game
 5. The moves counter sets the star rating
-0 to 31 moves =
-32 to 49 moves =
-50 and more moves =
-
+0 to 31 moves = 3 stars
+32 to 49 moves = 2 stars
+50 and more moves = 1 star
 6. The time counter starts on the first click on cards
 
 ## Contributing
