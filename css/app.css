@@ -17,7 +17,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ffffff url('../img/geometry2.png');
+    /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -85,7 +86,7 @@ h1 {
     transform: rotateY(0);
 }
 
-.deck .card.no-match{
+.deck .card.no-match {
     background: #ff0000c7;
 }
 
@@ -97,11 +98,11 @@ h1 {
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
@@ -129,11 +130,25 @@ h1 {
     width: 10vw;
 }
 
-.score-panel :nth-child(1) { order: 0; }
-        .score-panel :nth-child(2) { order: 0; }
-        .score-panel :nth-child(3) { order: 2; }
-        .score-panel :nth-child(4) { order: 1; }
-        .score-panel :nth-child(5) { order: 1; }
+.score-panel :nth-child(1) {
+    order: 0;
+}
+
+.score-panel :nth-child(2) {
+    order: 0;
+}
+
+.score-panel :nth-child(3) {
+    order: 2;
+}
+
+.score-panel :nth-child(4) {
+    order: 1;
+}
+
+.score-panel :nth-child(5) {
+    order: 1;
+}
 
 /*
  * Styles for the Modal Boxes
@@ -197,102 +212,102 @@ h1 {
     box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
+/*
+ * Media Queries
+ */
 
+@media only screen and (max-width: 813px) and (max-height: 813px) {
 
-@media only screen and (max-width: 813px) and (max-height: 813px){
-    
     h1 {
         font-size: 1.5em;
         line-height: 0.5em;
     }
-       
+
     .score-panel {
         width: 270px;
         line-height: 1em;
     }
-    
+
     .deck {
         width: 290px;
         min-height: 290px;
         padding: 10px;
     }
-    
+
     .deck .card {
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
     }
-    
+
     .deck .card.show {
         font-size: 20px;
     }
-    
+
     .deck .card.match {
         font-size: 20px;
     }
 }
 
-@media only screen and (min-width: 814px) and (max-height: 961px){
- .deck {
+@media only screen and (min-width: 814px) and (max-height: 961px) {
+    .deck {
         width: 600px;
         min-height: 600px;
         padding: 20px;
     }
-    
+
     .deck .card {
-    width: 125px;
-    height: 125px;
+        width: 125px;
+        height: 125px;
     }
-    
+
     .deck .card.show {
         font-size: 40px;
     }
-    
+
     .deck .card.match {
         font-size: 40px;
     }
 }
 
-@media only screen and (min-width: 960px) and (max-height: 600px){
- .deck {
+@media only screen and (min-width: 960px) and (max-height: 600px) {
+    .deck {
         width: 500px;
         min-height: 490px;
         padding: 20px;
     }
-    
+
     .deck .card {
-    width: 100px;
-    height: 100px;
+        width: 100px;
+        height: 100px;
     }
-    
+
     .deck .card.show {
         font-size: 30px;
     }
-    
+
     .deck .card.match {
         font-size: 30px;
     }
 }
 
-@media only screen and (min-width: 600px) and (max-width: 601px) and (max-height: 960px){
- .deck {
+@media only screen and (min-width: 600px) and (max-width: 601px) and (max-height: 960px) {
+    .deck {
         width: 600px;
         min-height: 600px;
         padding: 20px;
     }
-    
+
     .deck .card {
-    width: 125px;
-    height: 125px;
+        width: 125px;
+        height: 125px;
     }
-    
+
     .deck .card.show {
         font-size: 35px;
     }
-    
+
     .deck .card.match {
         font-size: 35px;
     }
 }
-   
-

@@ -65,7 +65,7 @@ displayCard();
 
 function generateCard(card) {
     return `<li class="card" data-card="fa ${card}"><i class="fa ${card}"></i></li>`;
-};
+}
 
 function displayCard() {
 
@@ -74,7 +74,7 @@ function displayCard() {
     });
 
     deck.innerHTML = cardHTML.join('');
-};
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -99,18 +99,18 @@ function listenCardClick() {
                 openCards.push(card);
                 card.classList.add('open', 'show');
 
-                //Check if 2 opened cards match and add animation 
+                //Check if 2 opened cards match and add animation
                 if (openCards.length == 2) {
                     if (openCards[0].dataset.card == openCards[1].dataset.card) {
                         openCards[0].classList.add('match', 'open', 'show', 'animated', 'fast', 'rubberBand');
                         openCards[1].classList.add('match', 'open', 'show', 'animated', 'fast', 'rubberBand');
                         matchedCards = matchedCards.concat(openCards);
                         openCards = [];
-                        isOver(gameOver);                        
+                        isOver(gameOver);
                     } else {
                         openCards[0].classList.add('animated', 'fast', 'shake', 'no-match');
                         openCards[1].classList.add('animated', 'fast', 'shake', 'no-match');
-                    };
+                    }
 
                     setTimeout(function () {
                         openCards.forEach(function (card) {
@@ -118,17 +118,17 @@ function listenCardClick() {
                         });
                         openCards = [];
                     }, 250);
-                    
-                };
+
+                }
                 incrementCounter();
                 setStars();
 
                 // Start the timer if it is the first click
                 if (movesCounter === 1) {
                     timeInt = setInterval(startTimer, 1000);
-                };
+                }
 
-            };
+            }
         });
     });
 }
@@ -147,6 +147,7 @@ function resetCounter() {
 // Change the timer values on the webpage to reflect elapsed time in minutes and seconds
 function startTimer() {
     ++totalSeconds;
+
     function addZero(i) {
         return (i < 10) ? `0` + i : i;
     }
@@ -175,8 +176,8 @@ function generateStars() {
         const starsUL = document.getElementsByClassName("stars");
         const starList = starsUL[0];
         starList.appendChild(li);
-    };
-};
+    }
+}
 
 //Set Rating depending on number of card clicks/moves
 function setStars() {
@@ -187,8 +188,8 @@ function setStars() {
         star[2].className = "fa fa-star-o";
     } else if (movesCounter === 50) {
         star[1].className = "fa fa-star-o";
-    };
-};
+    }
+}
 
 // Reset Stars and show all stars by changing the class name
 function resetStars() {
@@ -200,7 +201,7 @@ function resetStars() {
             stars[i].className = "fa fa-star";
         }
     }
-};
+}
 
 // Check if the game is over and if all 16 cards are matched, stop the timer and display the modal box
 let gameOver;
@@ -211,9 +212,9 @@ function isOver() {
             stopTimer();
             showGameOverModal();
             buildModal();
-        };
+        }
     }, 500);
-};
+}
 
 // Create a div element to add to the page that will hold the congrats message later
 // Hide the div element initially
@@ -223,7 +224,7 @@ function buildModal() {
     modalDiv.className = `modal-box dimmed`;
     modalDiv.innerHTML = ``;
     modalContainer.appendChild(modalDiv);
-};
+}
 
 // Display the Modal Box message with the move count, total time, star rating and play again 'button'
 function showGameOverModal() {
@@ -239,7 +240,7 @@ function showGameOverModal() {
         <button class="modal-button"> Play Again</button>`;
     const button = document.querySelector(".modal-button");
     button.addEventListener(`click`, reset);
-};
+}
 
 // Hide the congrats popup by adding the class 'dimmed'
 // Erase the modal box text messages
@@ -255,25 +256,23 @@ function showRulesModal() {
     const modalContainer = document.querySelector(".container");
     const modalDiv = document.createElement('div');
     modalDiv.className = `rules-modal-box`;
-    modalDiv.innerHTML = 
+    modalDiv.innerHTML =
         `<h2>Game rules!</h2>
         <ul>
-        <li>Left click on square opens a card</li>
-        <li>Match two cards<i class= "fa fa-diamond"></i><i class="fa fa-diamond"></i></li >
-      
-        <li>Matching all pairs ends the game</li>
-        <li>Restart icon resets the game</li>
+            <li>Left click on square opens a card</li>
+            <li>Match two cards<i class= "fa fa-diamond"></i><i class="fa fa-diamond"></i></li>
+            <li>Matching all pairs ends the game</li>
+            <li>Restart icon resets the game</li>
         <ul class = "rules-moves">
-        <li>0 to 31 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
-        <li>32 to 49 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i></li>
-         <li>50 and more moves = <i class="fa fa-star"></i></li>
-         </li>
+            <li>0 to 31 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+            <li>32 to 49 moves = <i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+            <li>50 and more moves = <i class="fa fa-star"></i></li>
         <h3> Good Luck </h3>
-        <button class = "start-game-modal-button"> Start Game </button>`;
+        <button class = "start-game-modal-button">Start Game</button>`;
     modalContainer.appendChild(modalDiv);
     const startButton = document.querySelector(".start-game-modal-button");
     startButton.addEventListener(`click`, hideRulesModal);
-           
+
 }
 
 function hideRulesModal() {
@@ -304,7 +303,7 @@ function reset() {
     //call displayCard to create new cards
     displayCard();
 
-    //reset any related variables
+    //Reset any related variables
     hideModal();
 
     // Activate click event on cards
