@@ -46,9 +46,9 @@ Comments are present and effectively explain longer code procedure when necessar
 
 ## Dependencies
 
-Bootstrapcdn Font awesome library - <https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css/>
-Google Fonts - <https://fonts.googleapis.com/css?family=Coda/>
-Animations - <https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css/>
+[https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css](Bootstrapcdn Font awesome library)
+[https://fonts.googleapis.com/css?family=Coda](Google Fonts)
+[https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css](Animations)
 Code is formatter following HTML, CSS, JavaScript and Git - Udacity Style Guides
 
 ## Contributing
