@@ -20,12 +20,11 @@
 ## Game Rules
 
  1. Left click on square opens a card
- 2. Left click on square opens a card
- 3. Match two cards
- 4. There are 8 pairs of cards
- 5. Matching all pairs ends the game
- 6. Restart icon resets the game
- 7. The time counter starts on the first click on cards
+ 2. Match two cards:gem::gem:
+ 3. There are 8 pairs of cards
+ 4. Matching all pairs ends the game :star: :star: :star:
+ 5. Restart icon resets the game
+ 6. The time counter starts on the first click on cards
 
 ## Start Game
 
